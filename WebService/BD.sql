@@ -19,5 +19,3 @@ Create Table Activities(
 	constraint fk_categorie foreign key (categorieId)references Categories(id)
 );
 
-
-

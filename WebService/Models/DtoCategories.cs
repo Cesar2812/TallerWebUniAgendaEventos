@@ -3,6 +3,6 @@
     public class DtoCategories
     {
         public int id { get; set; }
-        public string? NameCategory { get; set; }
+        public string? nameCategory { get; set; }
     }
 }

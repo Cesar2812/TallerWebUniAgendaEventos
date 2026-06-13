@@ -22,7 +22,7 @@ public class CategoryController : ControllerBase
     [Route("GetCategories")]
     public async Task<IActionResult> GetCategories()
     {
-        var category = await _dbContext.Categories.Select(c => new
+        var categories = await _dbContext.Categories.Select(c => new
         {
             c.Id,
             c.NameCategory
@@ -30,7 +30,7 @@ public class CategoryController : ControllerBase
 
         return StatusCode(StatusCodes.Status200OK, new
         {
-            lista = category
+            lista = categories
         });
     }
 
@@ -45,8 +45,8 @@ public class CategoryController : ControllerBase
         }).FirstOrDefaultAsync();
 
         return StatusCode(StatusCodes.Status200OK, new 
-        { objeto = categorie
-        
+        { 
+            objeto = categorie
         });
     }
 
@@ -55,11 +55,11 @@ public class CategoryController : ControllerBase
     [Route ("CreateCategorie")]
     public async Task<IActionResult> CreateCategorie([FromBody] DtoCategories dto) 
     {
-        var category = new Categories
+        var categorie = new Categories
         {
-            NameCategory=dto.NameCategory
+            NameCategory=dto.nameCategory
         };
-        await _dbContext.Categories.AddAsync(category);
+        await _dbContext.Categories.AddAsync(categorie);
         await _dbContext.SaveChangesAsync(); 
 
         return StatusCode(StatusCodes.Status201Created, new
@@ -74,9 +74,9 @@ public class CategoryController : ControllerBase
     [Route("UpdateCategorie")]
     public async Task<IActionResult> UpdateCategorie([FromBody] DtoCategories dto)
     {
-        var category = await _dbContext.Categories.FirstOrDefaultAsync(c => c.Id == dto.id);
+        var categorie = await _dbContext.Categories.FirstOrDefaultAsync(c => c.Id == dto.id);
 
-        category.NameCategory = dto.NameCategory;
+        categorie.NameCategory = dto.nameCategory;
 
         await _dbContext.SaveChangesAsync();
 
