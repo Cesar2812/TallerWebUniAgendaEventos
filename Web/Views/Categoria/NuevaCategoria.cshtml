@@ -1,0 +1,53 @@
+﻿@model DtoCategoria
+@{
+    ViewData["Title"] = "Nueva Categoria";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 bg-second-primary">
+        <h6 class="m-0 font-weight-bold text-white">Nueva Categoria</h6>
+    </div>
+    <div class="card-body">
+
+        <form asp-action="NuevaCategoria" asp-controller="Categoria" method="post">
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Nombre De La Categoria</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" asp-for="nameCategory">
+                <span asp-validation-for="nameCategory" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary"><i class="bi bi-floppy2-fill"></i> Guardar</button>
+            <a asp-action="ListCategoria" asp-controller="Category" class="btn btn-warning"><i class="bi bi-card-checklist"></i> Volver a la Lista</a>
+        </form>
+
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        @if (TempData["MensajeExito"] != null)
+        {
+                    <text>
+                            swal({
+                                title: "Éxito",
+                                text:@Html.Raw(System.Text.Json.JsonSerializer.Serialize(TempData["MensajeExito"])),
+                                type: "success"
+                            }, function () {
+                                    window.location.href = '@Url.Action("ListCategoria", "Categoria")';
+                            });
+                    </text>
+        }
+
+        @if (TempData["MensajeError"] != null)
+        {
+                    <text>
+                            swal({
+                                title: "Error",
+                                    text: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(TempData["MensajeError"])),
+                                type: "error"
+                            });
+                    </text>
+        }
+    </script>
+}
+

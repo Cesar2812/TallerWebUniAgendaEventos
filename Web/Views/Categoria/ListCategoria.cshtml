@@ -1,0 +1,52 @@
+﻿@model List<DtoCategoria>
+@{
+    ViewData["Title"] = "Categorias";
+}
+
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 bg-second-primary">
+            <h6 class="m-0 font-weight-bold text-white">Lista de Categorias</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-3">
+                    <a class="btn btn-success" asp-action="NuevaCategoria" asp-controller="Categoria"><i class="fas fa-plus-circle"></i> Nueva Categoria</a>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+
+                <div class="col-sm-12">
+                    <table class="table table-bordered" id="tbdata" cellspacing="0" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Nombre</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.id</td>
+                                    <td>@item.nameCategory</td>
+                                    <td>
+                                        <a asp-action="EditarCategoria" asp-controller="Categoria" asp-route-id="@item.id" class="btn btn-primary btn-sm"> <i class="fas fa-pencil-alt"></i> Editar</a>
+                                        <a asp-action="EliminarCategoria" asp-controller="Categoria" asp-route-id="@item.id" class="btn btn-danger btn-sm"> <i class="fas fa-trash-alt"></i> Eliminar</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

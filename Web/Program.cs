@@ -1,4 +1,5 @@
 using DotNetEnv;
+using Web.Services.ServiceCategoria;
 
 Env.Load();
 
@@ -7,6 +8,8 @@ builder.Configuration["SERVER_API"] = Environment.GetEnvironmentVariable("SERVER
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IServiceCategoria, CategoriaServicio>();
+
 
 var app = builder.Build();
 

@@ -1,0 +1,53 @@
+﻿@model DtoCategoria
+@{
+    ViewData["Title"] = "Eliminar Categoria";
+}
+
+<div class="card shadow mb-4">
+
+    <div class="card-header py-3 bg-second-primary">
+        <h6 class="m-0 font-weight-bold text-white">Eliminar Categoria</h6>
+    </div>
+
+    <div class="card-body">
+        <form asp-action="EliminarCategoria" asp-controller="Categoria" method="post">
+
+            <input type="hidden" class="form-control" asp-for="id">
+
+            <div class="alert alert-danger" role="alert">
+                ¿Desea eliminar la Categoria: @Html.DisplayFor(c => c.nameCategory)?
+            </div>
+
+            <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i> Eliminar</button>
+            <a asp-action="ListCategoria" asp-controller="Categoria" class="btn btn-warning"><i class="bi bi-card-checklist"></i> Volver a la Lista</a>
+        </form>
+    </div> 
+
+</div>
+@section Scripts {
+    <script>
+        @if (TempData["MensajeExito"] != null)
+        {
+                        <text>
+                                swal({
+                                    title: "Éxito",
+                                    text:@Html.Raw(System.Text.Json.JsonSerializer.Serialize(TempData["MensajeExito"])),
+                                    type: "success"
+                                }, function () {
+                                    window.location.href = '@Url.Action("ListCategoria", "Categoria")';
+                                });
+                        </text>
+        }
+
+        @if (TempData["MensajeError"] != null)
+        {
+                        <text>
+                                swal({
+                                    title: "Error",
+                                        text: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(TempData["MensajeError"])),
+                                    type: "error"
+                                });
+                        </text>
+        }
+    </script>
+}
