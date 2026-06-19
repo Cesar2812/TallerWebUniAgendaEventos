@@ -1,5 +1,112 @@
-﻿
+﻿@model List<DtoEvento>
 @{
+    ViewData["Title"] = "Eventos";
+}
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 bg-second-primary">
+            <h6 class="m-0 font-weight-bold text-white">Lista de Eventos</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-3">
+                    <a class="btn btn-success" asp-action="NuevoEvento" asp-controller="Evento"><i class="fas fa-plus-circle"></i> Nuevo Evento</a>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-bordered" id="tbdata" cellspacing="0" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Evento</th>
+                                <th>Fecha De Inicio</th>
+                                <th>Fecha De Fin</th>
+                                <th>Categoria</th>
+                                <th>Notas</th>
+
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.id</td>
+                                    <td>@item.nameActivitie</td>
+                                    <td>@item.starDate</td>
+                                    <td>@item.endDate</td>
+                                    <td>@item.nameCategory</td>
+                                    <td>@item.notes</td>
+                                    <td>
+                                        <a asp-action="EditarEvento" asp-controller="Evento" asp-route-id="@item.id" class="btn btn-primary btn-sm"> <i class="fas fa-pencil-alt"></i> Editar</a>
+                                        <button type="button" class="btn btn-danger btn-sm btn-eliminar" data-id="@item.id"><i class="fas fa-trash-alt"></i>Eliminar</button>
+                                       
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const botonesEliminar = document.querySelectorAll(".btn-eliminar");
+
+            botonesEliminar.forEach(boton => {
+                boton.addEventListener("click", function () {
+                    const id = this.getAttribute("data-id");
+
+                    swal({
+                        title: "¿Deseas eliminar este Evento?",
+                        text: "Esta acción no se puede deshacer",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Sí, eliminar",
+                        cancelButtonText: "Cancelar",
+                        closeOnConfirm: false
+                    },
+                    function (isConfirm) {
+                        if (isConfirm) {
+                            window.location.href = "/Evento/EliminarEvento?id=" + id;
+                        }
+                    });
+                });
+            });
+        });
+
+        @if (TempData["MensajeExito"] != null)
+        {
+                            <text>
+                                    swal({
+                                        title: "Éxito",
+                                        text:@Html.Raw(System.Text.Json.JsonSerializer.Serialize(TempData["MensajeExito"])),
+                                        type: "success"
+                                    }, function () {
+                                        window.location.href = '@Url.Action("ListEvento", "Evento")';
+                                    });
+                            </text>
+        }
+
+        @if (TempData["MensajeError"] != null)
+        {
+                            <text>
+                                    swal({
+                                        title: "Error",
+                                            text: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(TempData["MensajeError"])),
+                                        type: "error"
+                                    });
+                            </text>
+        }
+
+    </script>
 }
 
-<H1>Hola Mundo</H1>

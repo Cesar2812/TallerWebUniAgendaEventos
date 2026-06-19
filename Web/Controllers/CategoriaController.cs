@@ -75,6 +75,10 @@ public class CategoriaController : Controller
     [HttpPost]
     public async Task<IActionResult> EditarCategoria(DtoCategoria dto)
     {
+        if (!ModelState.IsValid)
+        {
+            return View();
+        }
         var response = await _servicioCategoria.EditCategoria(dto);
         if (response.exito)
         {

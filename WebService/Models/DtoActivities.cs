@@ -9,9 +9,9 @@
         public DateOnly starDate { get; set; }
 
 
-        public DateOnly starEnd { get; set; }
+        public DateOnly endDate { get; set; }
 
-        public int categoryId { get; set; }
+        public int categorieId { get; set; }
         public string? notes { get; set; }
 
     }
